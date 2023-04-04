@@ -10,18 +10,6 @@
 
 extern InterfaceManager interfaceManager;
 
-ButtonHandler::ButtonHandler(uint8_t *flags, Button_P buttons, uint8_t count) {
-    buttonCount = count;
-    buttonTable = buttons;
-    buttonFlags = flags;
-    memset(flags, 0, count * sizeof(*flags));
-
-    buttonId = 0;
-    repeatCount = 0;
-    pressedTimestamp = 0;
-
-}
-
 void ButtonHandler::begin() {
     serialDebugInitPuts_P(PSTR("ButtonHandler::begin()"));
     resume(250);

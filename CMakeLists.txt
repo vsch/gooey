@@ -21,6 +21,8 @@ project(${PROJECT_NAME})
 
 # Define additional source and header files or default arduino sketch files
 set(${PROJECT_NAME}_SRCS
+        gooey_test.cpp
+        power_down.c
         src/ButtonHandler.cpp
         src/FieldEditor.cpp
         src/InterfaceManager.cpp
@@ -32,6 +34,10 @@ set(${PROJECT_NAME}_SRCS
         src/Utils.c
         )
 set(${PROJECT_NAME}_HDRS
+        power_down.h
+        config.h
+        pin_config.h
+        type_defs.h
         src/ButtonHandler.h
         src/Events.h
         src/FieldEditor.h
@@ -46,13 +52,14 @@ set(${PROJECT_NAME}_HDRS
         )
 
 ### Additional static libraries to include in the target.
-set(${PROJECT_NAME}_LIBS/..)
-#link_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
+#set(${PROJECT_NAME}_LIBS/..)
+### additional library directories to search
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
 
 # For nested library sources replace ${LIB_NAME} with library name for each library
 # set(_RECURSE true)
 
-set(${CMAKE_PROJECT_NAME}_SKETCH gooey_test.ino)
+#set(${CMAKE_PROJECT_NAME}_SKETCH gooey_test.ino)
 
 #### Additional settings for programmer. From programmers.txt
 set(${PROJECT_NAME}_PROGRAMMER avrispmkii)

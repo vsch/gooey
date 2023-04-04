@@ -54,7 +54,18 @@ class ButtonHandler : public Task {
     virtual void begin();
     virtual void loop();
 public:
-    ButtonHandler(uint8_t *flags, Button_P buttons, uint8_t count);
+    inline ButtonHandler(uint8_t *flags, Button_P buttons, uint8_t count) {
+        buttonCount = count;
+        buttonTable = buttons;
+        buttonFlags = flags;
+        memset(flags, 0, count * sizeof(*flags));
+
+        buttonId = 0;
+        repeatCount = 0;
+        pressedTimestamp = 0;
+
+    }
+
     void setButtonType(uint8_t id, uint8_t flags);     // set dynamic wantFlags: BUTTON_LONG_PRESSABLE, BUTTON_AUTO_REPEATABLE
 
     inline uint16_t getRepeatCount() const {

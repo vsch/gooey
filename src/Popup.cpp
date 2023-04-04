@@ -7,11 +7,6 @@
 #include "InterfaceManager.h"
 #include "ButtonHandler.h"
 
-Popup::Popup(PGM_P title) {
-    optionTitle = title;
-    baseEvent = EVENT_CLOSE_MENU;
-}
-
 void Popup::show() {
     interfaceManager.add(this);
 }
@@ -27,14 +22,3 @@ uint8_t Popup::update() {
     }
     return false;
 }
-
-void Popup::added() {
-}
-
-void Popup::removed() {
-}
-
-uint8_t Popup::activated(uint8_t wantFlags) {
-    return INTERFACE_WANT_MENU_TRANSLATIONS | INTERFACE_WANT_MENU_OPTION;
-}
-

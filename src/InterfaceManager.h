@@ -37,7 +37,6 @@
 #define INTERFACE_FAST_FLASH_OFF                0x02
 #define INTERFACE_HANDLER_REMOVED               0x04  // set if handler is removed, reset by start process loop
 
-
 extern "C" {
 extern void InterfaceManager_power_down();
 extern uint8_t InterfaceManager_is_preserve_popup_selection();
@@ -54,7 +53,22 @@ class InterfaceManager : public Task {
     time_t lastActionTimestamp;
 
 public:
-    InterfaceManager();
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cppcoreguidelines-pro-type-member-init"
+
+    inline InterfaceManager() {
+        memset(handlers, 0, sizeof(handlers));
+        handlerCount = 0;
+        flags = 0;
+        wantFlags = 0;
+        flashTimeout = 0;
+    }
+
+#pragma clang diagnostic pop
+
+    void hadAction();
+
     virtual uint8_t update();
     virtual event_t process(event_t event);
 
@@ -74,21 +88,19 @@ public:
     }
 #endif
 
-    inline uint8_t isSlowFlashOn() {
+    inline uint8_t isSlowFlashOn() const {
         return noneSet(flags, INTERFACE_SLOW_FLASH_OFF);
     }
 
-    inline uint8_t isFastFlashOn() {
+    inline uint8_t isFastFlashOn() const {
         return noneSet(flags, INTERFACE_FAST_FLASH_OFF);
     }
 
-    inline uint8_t isBlinkOn() {
+    inline uint8_t isBlinkOn() const {
         return !allSet(flags, (INTERFACE_SLOW_FLASH_OFF | INTERFACE_FAST_FLASH_OFF));
     }
 
-    void hadAction();
-
-    inline bool isPreservePopupSelection() const {
+    inline bool isPreservePopupSelection() {
         return InterfaceManager_is_preserve_popup_selection();
     }
 

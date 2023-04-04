@@ -12,7 +12,9 @@ protected:
     uint8_t fieldsXCoord;
 
 public:
-    PopupForm(uint8_t flags, PGM_P title, PGM_STR_TABLE options, uint8_t count);
+    inline PopupForm(uint8_t flags, PGM_P title, PGM_STR_TABLE options, uint8_t count) : PopupOptionsMenu(flags | POPUP_MENU_STAY_OPEN | POPUP_MENU_OPTION_PER_LINE, title, options, count) {
+        fieldsXCoord = DISPLAY_XSIZE * 3 / 4;
+    }
 
     virtual event_t process(event_t event);
     virtual void printOption(uint8_t id);

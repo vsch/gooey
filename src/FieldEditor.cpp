@@ -8,7 +8,7 @@
 #include "InterfaceManager.h"
 #include "ButtonHandler.h"
 
-int16_t const edit_1_5_10_FieldOffsets[] PROGMEM = {
+int16_t const fieldOffsets_1_5_10[] PROGMEM = {
         -10,
         -5,
         -1,
@@ -17,94 +17,26 @@ int16_t const edit_1_5_10_FieldOffsets[] PROGMEM = {
         10,
 };
 
-int16_t const edit_25_100_FieldOffsets[] PROGMEM = {
+int16_t const fieldOffsets_25_100[] PROGMEM = {
         -100,
         -25,
         25,
         100,
 };
 
-int16_t const edit_10_100_FieldOffsets[] PROGMEM = {
+int16_t const fieldOffsets_10_100[] PROGMEM = {
         -100,
         -10,
         10,
         100,
 };
 
-int16_t const edit_100_1000_FieldOffsets[] PROGMEM = {
+int16_t const fieldOffsets_100_1000[] PROGMEM = {
         -1000,
         -100,
         100,
         1000,
 };
-
-int16_t const edit_05_1_5_FieldOffsets[] PROGMEM = {
-        -5 * ENCODER_TICKS_PER_ML,
-        -ENCODER_TICKS_PER_ML,
-        -(ENCODER_TICKS_PER_ML / 2),
-        ENCODER_TICKS_PER_ML / 2,
-        ENCODER_TICKS_PER_ML,
-        5 * ENCODER_TICKS_PER_ML,
-};
-
-FieldEditor::FieldEditor(uint8_t dummy) : PopupMenu(POPUP_MENU_STAY_OPEN, spcString, lengthof(edit_1_5_10_FieldOffsets)) {
-    (void) dummy;
-
-    fieldTypeFlags = FIELD_TYPE_1_5_10;
-    fieldIndex = 0;
-    fieldValue = 0;
-    fieldMin = 0;
-    fieldMax = 0;
-    optionOffsets = edit_1_5_10_FieldOffsets;
-    valueDivider = 1;
-    valueDecimals = 0;
-}
-
-void FieldEditor::show(uint8_t id, uint8_t fieldType, PGM_STR name, int16_t value, int16_t vMin, int16_t vMax) {
-    show(id, fieldType, name, value, vMin, vMax, 1, 0);
-}
-
-void FieldEditor::show(uint8_t id, uint8_t fieldType, PGM_STR name, int16_t value, int16_t vMin, int16_t vMax, int16_t vDivider, uint8_t vDecimals) {
-    fieldIndex = id;
-    optionTitle = reinterpret_cast<const char *>(name);
-    fieldValue = value;
-    fieldMin = vMin;
-    fieldMax = vMax;
-    valueDivider = vDivider;
-    valueDecimals = vDecimals;
-    fieldTypeFlags = fieldType;
-
-    switch (fieldType & ~FIELD_TYPE_NO_INPLACE_EDIT) {
-        case FIELD_TYPE_1_5_10 :
-            optionCount = lengthof(edit_1_5_10_FieldOffsets);
-            optionOffsets = edit_1_5_10_FieldOffsets;
-            break;
-
-        case FIELD_TYPE_25_100 :
-            optionCount = lengthof(edit_25_100_FieldOffsets);
-            optionOffsets = edit_25_100_FieldOffsets;
-            break;
-
-        case FIELD_TYPE_100_1000 :
-            optionCount = lengthof(edit_100_1000_FieldOffsets);
-            optionOffsets = edit_100_1000_FieldOffsets;
-            break;
-
-        case FIELD_TYPE_05_1_5 :
-            optionCount = lengthof(edit_05_1_5_FieldOffsets);
-            optionOffsets = edit_05_1_5_FieldOffsets;
-            valueDivider = ENCODER_TICKS_PER_ML;
-            valueDecimals = 1;
-            break;
-
-        default:
-            break;
-    }
-
-    stayOpenOnSelect();
-    //serialDebugHandlerAddPrintf_P(PSTR("FieldEditor stayOpen %d %S\n"), isStayOpenOnSelect(), serialDebugHandlersGetId(this));
-    Popup::show();
-}
 
 void FieldEditor::clipToMinMax() {
     if (fieldValue < fieldMin) {
@@ -139,7 +71,7 @@ event_t FieldEditor::process(event_t event) {
         adjustValue(getOffset(buttonHandler.getRepeatCount() <= 20 || optionCount == 2 ? optionCount / 2 : optionCount / 2 + 1));
     } else if (event == EVENT_MENU_DEC_SELECTION) {
         adjustValue(getOffset(optionCount / 2 - (buttonHandler.getRepeatCount() <= 20 || optionCount == 2 ? 1 : 2)));
-    } else if (event == EVENT_MENU_SELECT && !(fieldTypeFlags & FIELD_TYPE_NO_INPLACE_EDIT) && (interfaceManager.getWantOptions() & INTERFACE_WANT_ADJ_SELECTION)) {
+    } else if (event == EVENT_MENU_SELECT && !(menuFlags & POPUP_MENU_NO_INPLACE_EDIT) && (interfaceManager.getWantOptions() & INTERFACE_WANT_ADJ_SELECTION)) {
         // treat it as EVENT_MENU_OPTION since we are in place modifying
         retVal = EVENT_CLOSE_MENU;
         Popup::hide();
@@ -168,7 +100,7 @@ event_t FieldEditor::process(event_t event) {
 
 uint8_t FieldEditor::update() {
     bool retVal = true;
-    if ((fieldTypeFlags & FIELD_TYPE_NO_INPLACE_EDIT) || !(interfaceManager.getWantOptions() & INTERFACE_WANT_ADJ_SELECTION)) {
+    if ((menuFlags & POPUP_MENU_NO_INPLACE_EDIT) || !(interfaceManager.getWantOptions() & INTERFACE_WANT_ADJ_SELECTION)) {
         // don't have in-place mods, use menu
         retVal = PopupMenu::update();
 
@@ -179,11 +111,6 @@ uint8_t FieldEditor::update() {
         display.printValue(PV_2X_SIZE_UNITS_ONLY | (valueDecimals & PV_DECIMALS), fieldValue, valueDivider, NULL);
     }
     return retVal;
-}
-
-void FieldEditor::added() {
-    //serialDebugHandlerAddPrintf_P(PSTR("FieldEditor added() %S\n"), serialDebugHandlersGetId(this));
-    PopupMenu::added();
 }
 
 void FieldEditor::printOption(uint8_t id) {
@@ -205,6 +132,6 @@ int16_t FieldEditor::getOffset(uint8_t id) {
 }
 
 uint8_t FieldEditor::activated(uint8_t wantFlags) {
-    return Popup::activated(wantFlags) | INTERFACE_WANT_AUTO_REPEAT_SELECTION | INTERFACE_WANT_AUTO_REPEAT_NAVIGATION
-           | (fieldTypeFlags & FIELD_TYPE_NO_INPLACE_EDIT ? 0 : INTERFACE_WANT_ADJ_SELECTION);
+    return (PopupMenu::activated(wantFlags) & ~INTERFACE_WANT_ADJ_SELECTION) | INTERFACE_WANT_AUTO_REPEAT_SELECTION | INTERFACE_WANT_AUTO_REPEAT_NAVIGATION
+           | (menuFlags & POPUP_MENU_NO_INPLACE_EDIT ? 0 : INTERFACE_WANT_ADJ_SELECTION);
 }

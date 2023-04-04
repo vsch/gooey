@@ -4,26 +4,13 @@
 
 #include "Arduino.h"
 #include "../config.h"
-#include <ssd1306.h>
-#include <ssd1306_gfx.h>
-#include <Ssd1306Display.h>
+#include "ssd1306.h"
+#include "ssd1306_gfx.h"
+#include "Ssd1306Display.h"
 #include "InterfaceManager.h"
 #include "Utils.h"
 
 Ssd1306Display display;
-
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cppcoreguidelines-pro-type-member-init"
-
-InterfaceManager::InterfaceManager() {
-    memset(handlers, 0, sizeof(handlers));
-    handlerCount = 0;
-    flags = 0;
-    wantFlags = 0;
-    flashTimeout = 0;
-}
-
-#pragma clang diagnostic pop
 
 void InterfaceManager::hadAction() {
     lastActionTimestamp = micros();
@@ -210,4 +197,3 @@ uint8_t InterfaceManager::findHandler(InterfaceHandler *handler) {
     }
     return -1;
 }
-

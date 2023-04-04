@@ -6,6 +6,8 @@
 #define UI_POPUP_H
 
 #include "InterfaceHandler.h"
+#include "ssd1306_gfx.h"
+#include "InterfaceManager.h"
 
 class Popup : public InterfaceHandler {
 protected:
@@ -13,12 +15,24 @@ protected:
     event_t baseEvent;   // base events have to be defined so that +1 is for option 1, +2 for option 2, ...
 
 public:
-    explicit Popup(PGM_P title);
+    explicit inline Popup(PGM_P title) {
+        optionTitle = title;
+        baseEvent = EVENT_CLOSE_MENU;
+    }
 
 public:
     inline void show(PGM_P title) {
         optionTitle = title;
         show();
+    }
+
+    virtual void added() = 0;
+    virtual void removed() = 0;
+    virtual event_t process(event_t event) = 0;
+    virtual uint8_t update();
+
+    inline virtual uint8_t activated(uint8_t wantFlags) {
+        return INTERFACE_WANT_MENU_TRANSLATIONS | INTERFACE_WANT_MENU_OPTION;
     }
 
     void show(); // used to insert into the interface handler
@@ -31,13 +45,6 @@ public:
     inline void setTitle(PGM_P title) {
         optionTitle = title;
     }
-
-    virtual uint8_t update();
-    virtual void added();
-    virtual void removed();
-    virtual uint8_t activated(uint8_t wantFlags);
-
-    virtual event_t process(event_t event) = 0;
 };
 
 #endif //UI_POPUP_H

@@ -8,14 +8,6 @@
 #include "Ssd1306Display.h"
 #include "InterfaceManager.h"
 
-PopupMenu::PopupMenu(uint8_t flags, PGM_P title, uint8_t count) : Popup(title) {
-    currentOption = 0;
-    topOption = 0;
-    optionCount = count;
-    menuFlags = flags;
-    fieldUpdater = NULL;
-}
-
 void PopupMenu::makeVisible(uint8_t index) {
     if (index > topOption + 2) {
         topOption = index - 2;
@@ -29,8 +21,6 @@ void PopupMenu::makeVisible(uint8_t index) {
 
 void PopupMenu::added() {
     //serialDebugHandlerAddPrintf_P(PSTR("PopupMenu added() %S\n"), serialDebugHandlersGetId(this));
-    Popup::added();
-
     if (!interfaceManager.isPreservePopupSelection() || currentOption >= optionCount) {
         // reset selection when it is added, if selection not preserved
         currentOption = 0;
@@ -41,7 +31,6 @@ void PopupMenu::added() {
 void PopupMenu::removed() {
     hideOnSelect();
     fieldUpdater = NULL;
-    Popup::removed();
 }
 
 event_t PopupMenu::process(event_t event) {
@@ -173,14 +162,6 @@ uint8_t PopupMenu::update() {
         fieldUpdater->updateField(currentOption);
     }
     return false;
-}
-
-bool PopupMenu::isEnabledOption(uint8_t id) {
-    return true;
-}
-
-uint8_t PopupMenu::activated(uint8_t wantFlags) {
-    return Popup::activated(wantFlags) | INTERFACE_WANT_AUTO_REPEAT_NAVIGATION | ((menuFlags & POPUP_MENU_OPTION_PER_LINE) ? INTERFACE_WANT_VERTICAL_MENU : 0);
 }
 
 

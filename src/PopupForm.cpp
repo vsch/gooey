@@ -10,10 +10,6 @@
 
 FieldEditor fieldEditor(0);
 
-PopupForm::PopupForm(uint8_t flags, PGM_P title, PGM_STR_TABLE options, uint8_t count) : PopupOptionsMenu(flags | POPUP_MENU_STAY_OPEN | POPUP_MENU_OPTION_PER_LINE, title, options, count) {
-    fieldsXCoord = DISPLAY_XSIZE * 3 / 4;
-}
-
 event_t PopupForm::process(event_t event) {
     event_t retVal = EVENT_NONE;
 

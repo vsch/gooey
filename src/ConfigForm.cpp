@@ -12,7 +12,9 @@
 #include "../EventTranslator.h"
 
 #ifndef CONSOLE_DEBUG
+
 #include "../tasks/AdcHandler.h"
+
 #else
 int32_t encoder_min_pos;
 #endif // CONSOLE_DEBUG
@@ -48,12 +50,12 @@ void inplace_updater_uint16(void *pField) { display.print((uint16_t) *(int16_t *
 void inplace_updater_int16(void *pField) { display.print(*(int16_t *) pField); }
 void inplace_updater_bool(void *pField) { display.print(*(int16_t *) pField ? 'Y' : 'N'); }
 void inplace_updater_percent(void *pField) { display.printValue(0, (uint8_t) *(int16_t *) pField, 1, F("%")); }
-void processor_int8(uint8_t index, PGM_STR fieldName, void *pField, uint8_t vType, int16_t vMin, int16_t vMax) { fieldEditor.show(index, vType, fieldName, *(int8_t *) pField, vMin, vMax); }
-void processor_uint8(uint8_t index, PGM_STR fieldName, void *pField, uint8_t vType, int16_t vMin, int16_t vMax) { fieldEditor.show(index, vType, fieldName, *(uint8_t *) pField, vMin, vMax); }
-void processor_uint16(uint8_t index, PGM_STR fieldName, void *pField, uint8_t vType, int16_t vMin, int16_t vMax) { fieldEditor.show(index, vType, fieldName, (int16_t) *(uint16_t *) pField, vMin, vMax); }
-void processor_int16(uint8_t index, PGM_STR fieldName, void *pField, uint8_t vType, int16_t vMin, int16_t vMax) { fieldEditor.show(index, vType, fieldName, *(int16_t *) pField, vMin, vMax); }
-void processor_percent(uint8_t index, PGM_STR fieldName, void *pField, uint8_t vType, int16_t vMin, int16_t vMax) { fieldEditor.show(index, vType, fieldName, *(uint8_t *) pField, vMin, vMax); }
-void setter_int8(void *pField, int16_t value) { *(int8_t *) pField = value < -128 ? -128 : value > 127 ? 127 : value; }
+void processor_int8(uint8_t index, const int16_t *offsetTable, uint8_t offsetCount, PGM_STR fieldName, void *pField, int16_t vMin, int16_t vMax) { fieldEditor.show(index, offsetTable, offsetCount, fieldName, *(int8_t *) pField, vMin, vMax); }
+void processor_uint8(uint8_t index, const int16_t *offsetTable, uint8_t offsetCount, PGM_STR fieldName, void *pField, int16_t vMin, int16_t vMax) { fieldEditor.show(index, offsetTable, offsetCount, fieldName, *(uint8_t *) pField, vMin, vMax); }
+void processor_uint16(uint8_t index, const int16_t *offsetTable, uint8_t offsetCount, PGM_STR fieldName, void *pField, int16_t vMin, int16_t vMax) { fieldEditor.show(index, offsetTable, offsetCount, fieldName, (int16_t) *(uint16_t *) pField, vMin, vMax); }
+void processor_int16(uint8_t index, const int16_t *offsetTable, uint8_t offsetCount, PGM_STR fieldName, void *pField, int16_t vMin, int16_t vMax) { fieldEditor.show(index, offsetTable, offsetCount, fieldName, *(int16_t *) pField, vMin, vMax); }
+void processor_percent(uint8_t index, const int16_t *offsetTable, uint8_t offsetCount, PGM_STR fieldName, void *pField, int16_t vMin, int16_t vMax) { fieldEditor.show(index, offsetTable, offsetCount, fieldName, *(uint8_t *) pField, vMin, vMax); }
+void setter_int8(void *pField, int16_t value) { *(int8_t *) pField = (int8_t)(value < -128 ? -128 : value > 127 ? 127 : value); }
 void setter_uint8(void *pField, int16_t value) { *(uint8_t *) pField = value < 0 ? 0 : value > 255 ? 255 : value; }
 void setter_uint16(void *pField, int16_t value) { *(uint16_t *) pField = value < 0 ? 0 : value; }
 void setter_int16(void *pField, int16_t value) { *(int16_t *) pField = value; }
@@ -84,8 +86,9 @@ void ConfigForm::processField(uint8_t index) {
 
     void *pField = (void *) pgm_read_ptr(&fieldTable[index].pField);
     fieldProcessor_f processor = (fieldProcessor_f) pgm_read_ptr(&fieldTable[index].processor);
-    uint8_t type = pgm_read_byte(&fieldTable[index].type);
-    if (type == 0xff) {
+    uint8_t offsetCount = pgm_read_byte(&fieldTable[index].offsetCount);
+    const int16_t *offsetTable = (const int16_t *)pgm_read_ptr(&fieldTable[index].offsetTable);
+    if (offsetCount == 0) {
         // boolean field, processor is a toggle
         ((fieldBool_f) processor)();
 
@@ -96,7 +99,7 @@ void ConfigForm::processField(uint8_t index) {
     } else {
         int16_t vMin = pgm_read_word(&fieldTable[index].vMin);
         int16_t vMax = pgm_read_word(&fieldTable[index].vMax);
-        processor(index, getOption(index), pField, type, vMin, vMax);
+        processor(index, offsetTable, offsetCount, getOption(index), pField, vMin, vMax);
     }
 }
 
