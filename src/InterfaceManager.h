@@ -10,7 +10,7 @@
 #include "ssd1306.h"
 #include "Ssd1306Display.h"
 #include "../config.h"
-#include "Utils.h"
+#include "GooeyUtils.h"
 #include "InterfaceHandler.h"
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
@@ -42,6 +42,7 @@ extern void InterfaceManager_power_down();
 extern uint8_t InterfaceManager_is_preserve_popup_selection();
 extern uint8_t InterfaceManager_get_power_down_delay();
 extern uint8_t InterfaceManager_get_flash_delay();
+extern void InterfaceManager_save_config();
 }
 
 class InterfaceManager : public Task {

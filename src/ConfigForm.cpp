@@ -3,21 +3,11 @@
 //
 
 #include "ConfigForm.h"
-#include "Utils.h"
+#include "GooeyUtils.h"
 #include "FieldEditor.h"
 #include "ssd1306_gfx.h"
 #include "Ssd1306Display.h"
-#include "../util/non_volatile_data.h"
 #include "InterfaceManager.h"
-#include "../EventTranslator.h"
-
-#ifndef CONSOLE_DEBUG
-
-#include "../tasks/AdcHandler.h"
-
-#else
-int32_t encoder_min_pos;
-#endif // CONSOLE_DEBUG
 
 ConfigForm::ConfigForm(PGM_P title, PGM_STR_TABLE options, uint8_t count, const FieldData *fields) : PopupForm(0, title, options, count) {
     fieldTable = fields;
@@ -133,5 +123,5 @@ void ConfigForm::setField(uint8_t index, int16_t value) {
 
 void ConfigForm::removed() {
     PopupForm::removed();
-    save_config();
+    InterfaceManager_save_config();
 }

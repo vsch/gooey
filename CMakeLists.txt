@@ -31,7 +31,7 @@ set(${PROJECT_NAME}_SRCS
         src/PopupMenu.cpp
         src/PopupMessage.cpp
         src/PopupOptionsMenu.cpp
-        src/Utils.c
+        src/GooeyUtils.c
         )
 set(${PROJECT_NAME}_HDRS
         power_down.h
@@ -49,7 +49,7 @@ set(${PROJECT_NAME}_HDRS
         src/PopupMenu.h
         src/PopupMessage.h
         src/PopupOptionsMenu.h
-        src/Utils.h
+        src/GooeyUtils.h
         )
 
 ### Additional static libraries to include in the target.

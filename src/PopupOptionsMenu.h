@@ -7,7 +7,7 @@
 
 #include "PopupMenu.h"
 #include "ssd1306_gfx.h"
-#include "Utils.h"
+#include "GooeyUtils.h"
 
 #define POPUP_MENU_STAY_OPEN    0x01    // don't close on item select
 
