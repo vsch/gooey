@@ -38,6 +38,7 @@ set(${PROJECT_NAME}_HDRS
         config.h
         pin_config.h
         type_defs.h
+        src/gooey.h
         src/ButtonHandler.h
         src/Events.h
         src/FieldEditor.h
