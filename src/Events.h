@@ -2,8 +2,8 @@
 // Created by Vladimir Schneider on 2023-03-26.
 //
 
-#ifndef UI_EVENTS_H
-#define UI_EVENTS_H
+#ifndef GUI_EVENTS_H
+#define GUI_EVENTS_H
 
 #define EVENT_NONE                  ' '
 #define EVENT_MENU_OPTION           '!'
@@ -30,4 +30,4 @@
 
 typedef char event_t;
 
-#endif //UI_EVENTS_H
+#endif // GUI_EVENTS_H

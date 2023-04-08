@@ -5,7 +5,7 @@
 #include "Arduino.h"
 #include "Events.h"
 #include "InterfaceManager.h"
-#include "GooeyUtils.h"
+#include "GuiUtils.h"
 #include "ButtonHandler.h"
 
 extern InterfaceManager interfaceManager;

@@ -2,8 +2,8 @@
 // Created by Vladimir Schneider on 2023-02-25.
 //
 
-#ifndef UI_UTILS_H
-#define UI_UTILS_H
+#ifndef GUI_UTILS_H
+#define GUI_UTILS_H
 
 #include <stdint.h>
 
@@ -45,4 +45,4 @@ uint8_t gfx_sqrt8(uint8_t val);
 }
 #endif
 
-#endif //UI_UTILS_H
+#endif // GUI_UTILS_H

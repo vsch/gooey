@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.0)
-set(CMAKE_TOOLCHAIN_FILE /Users/vlad/src/projects/CLionArduinoPlugin/src/com/vladsch/clionarduinoplugin/resources/arduino-cmake/cmake/ArduinoToolchain.cmake)
+set(CMAKE_TOOLCHAIN_FILE /Users/vlad/src/arduino-cmake/ArduinoToolchain.cmake)
 set(CMAKE_CXX_STANDARD 98)
 set(PROJECT_NAME gooey)
 
@@ -21,8 +21,8 @@ project(${PROJECT_NAME})
 
 # Define additional source and header files or default arduino sketch files
 set(${PROJECT_NAME}_SRCS
-        gooey_test.cpp
-        power_down.c
+        gui_test.cpp
+        gui_power_down.c
         src/ButtonHandler.cpp
         src/FieldEditor.cpp
         src/InterfaceManager.cpp
@@ -31,13 +31,13 @@ set(${PROJECT_NAME}_SRCS
         src/PopupMenu.cpp
         src/PopupMessage.cpp
         src/PopupOptionsMenu.cpp
-        src/GooeyUtils.c
+        src/GuiUtils.c
         )
 set(${PROJECT_NAME}_HDRS
-        power_down.h
-        config.h
-        pin_config.h
-        type_defs.h
+        gui_power_down.h
+        gui_config.h
+        gui_pin_config.h
+        gui_type_defs.h
         src/gooey.h
         src/ButtonHandler.h
         src/Events.h
@@ -49,13 +49,16 @@ set(${PROJECT_NAME}_HDRS
         src/PopupMenu.h
         src/PopupMessage.h
         src/PopupOptionsMenu.h
-        src/GooeyUtils.h
+        src/GuiUtils.h
         )
+# set(${PROJECT_NAME}_LIBS)
 
 ### Additional static libraries to include in the target.
 #set(${PROJECT_NAME}_LIBS/..)
 ### additional library directories to search
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
+# add_subdirectory()
+# set(${PROJECT_NAME}_SKETCH gooey.ino)
 
 # For nested library sources replace ${LIB_NAME} with library name for each library
 # set(_RECURSE true)
@@ -74,4 +77,3 @@ generate_arduino_firmware(${PROJECT_NAME})
 
 print_board_list()
 print_programmer_list()
-

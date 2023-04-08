@@ -2,8 +2,8 @@
 // Created by Vladimir Schneider on 2023-02-26.
 //
 
-#ifndef UI_POPUPMENU_H
-#define UI_POPUPMENU_H
+#ifndef GUI_POPUPMENU_H
+#define GUI_POPUPMENU_H
 
 #include "Popup.h"
 
@@ -79,4 +79,4 @@ public:
     serialDebugHandlersDeclareId("PopupMenu");
 };
 
-#endif //UI_POPUPMENU_H
+#endif // GUI_POPUPMENU_H

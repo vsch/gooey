@@ -4,7 +4,7 @@
 
 #include "PopupMessage.h"
 #include "Ssd1306Display.h"
-#include "GooeyUtils.h"
+#include "GuiUtils.h"
 
 const char okCancelTitle[] PROGMEM = { "" };
 const char okOpt[] PROGMEM = { "OK" };

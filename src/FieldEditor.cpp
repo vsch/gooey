@@ -4,7 +4,7 @@
 
 #include "FieldEditor.h"
 #include "Ssd1306Display.h"
-#include "GooeyUtils.h"
+#include "GuiUtils.h"
 #include "InterfaceManager.h"
 #include "ButtonHandler.h"
 

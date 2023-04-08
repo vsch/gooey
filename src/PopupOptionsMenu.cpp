@@ -4,7 +4,7 @@
 
 #include "Arduino.h"
 #include "PopupOptionsMenu.h"
-#include "GooeyUtils.h"
+#include "GuiUtils.h"
 #include "Ssd1306Display.h"
 
 void PopupOptionsMenu::printOption(uint8_t id) {

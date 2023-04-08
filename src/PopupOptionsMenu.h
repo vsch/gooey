@@ -2,12 +2,12 @@
 // Created by Vladimir Schneider on 2023-02-26.
 //
 
-#ifndef UI_POPUPOPTIONSMENU_H
-#define UI_POPUPOPTIONSMENU_H
+#ifndef GUI_POPUPOPTIONSMENU_H
+#define GUI_POPUPOPTIONSMENU_H
 
 #include "PopupMenu.h"
 #include "ssd1306_gfx.h"
-#include "GooeyUtils.h"
+#include "GuiUtils.h"
 
 #define POPUP_MENU_STAY_OPEN    0x01    // don't close on item select
 
@@ -43,4 +43,4 @@ public:
 };
 
 
-#endif //UI_POPUPOPTIONSMENU_H
+#endif // GUI_POPUPOPTIONSMENU_H

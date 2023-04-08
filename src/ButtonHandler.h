@@ -2,8 +2,8 @@
 // Created by Vladimir Schneider on 2023-02-25.
 //
 
-#ifndef UI_BUTTONHANDLER_H
-#define UI_BUTTONHANDLER_H
+#ifndef GUI_BUTTONHANDLER_H
+#define GUI_BUTTONHANDLER_H
 
 #include <Scheduler.h>
 
@@ -14,7 +14,7 @@
 #endif
 
 #include "Events.h"
-#include "../config.h"
+#include "../gui_config.h"
 
 #define BUTTON_PRESSED            0x01    // set if button is pressed
 #define BUTTON_AUTO_REPEATING     0x02    // set if button has passed auto repeat delay
@@ -80,4 +80,4 @@ extern uint8_t ButtonHandler_is_button_pressed(uint8_t id);
 extern uint16_t ButtonHandler_get_button_delay(uint8_t id, uint8_t delayType, uint16_t repeatCount);
 }
 
-#endif //UI_BUTTONHANDLER_H
+#endif // GUI_BUTTONHANDLER_H

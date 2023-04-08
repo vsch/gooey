@@ -4,7 +4,7 @@
 
 #include "Arduino.h"
 #include "PopupMenu.h"
-#include "GooeyUtils.h"
+#include "GuiUtils.h"
 #include "Ssd1306Display.h"
 #include "InterfaceManager.h"
 

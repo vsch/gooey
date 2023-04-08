@@ -3,7 +3,7 @@
 //
 
 #include "ConfigForm.h"
-#include "GooeyUtils.h"
+#include "GuiUtils.h"
 #include "FieldEditor.h"
 #include "ssd1306_gfx.h"
 #include "Ssd1306Display.h"

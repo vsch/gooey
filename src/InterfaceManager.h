@@ -2,15 +2,15 @@
 // Created by Vladimir Schneider on 2023-02-25.
 //
 
-#ifndef UI_INTERFACEMANAGER_H
-#define UI_INTERFACEMANAGER_H
+#ifndef GUI_INTERFACEMANAGER_H
+#define GUI_INTERFACEMANAGER_H
 
 #include "Arduino.h"
 #include <Scheduler.h>
 #include "ssd1306.h"
 #include "Ssd1306Display.h"
-#include "../config.h"
-#include "GooeyUtils.h"
+#include "../gui_config.h"
+#include "GuiUtils.h"
 #include "InterfaceHandler.h"
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
@@ -117,4 +117,4 @@ protected:
 
 extern InterfaceManager interfaceManager;
 
-#endif //UI_INTERFACEMANAGER_H
+#endif // GUI_INTERFACEMANAGER_H

@@ -2,8 +2,8 @@
 // Created by Vladimir Schneider on 2023-02-26.
 //
 
-#ifndef UI_FIELDEDITOR_H
-#define UI_FIELDEDITOR_H
+#ifndef GUI_FIELDEDITOR_H
+#define GUI_FIELDEDITOR_H
 
 #include "PopupForm.h"
 #include "PopupOptionsMenu.h"
@@ -95,4 +95,4 @@ inline void FieldEditor::show(uint8_t id, const int16_t *offsetTable, uint8_t of
 
 
 
-#endif //UI_FIELDEDITOR_H
+#endif // GUI_FIELDEDITOR_H

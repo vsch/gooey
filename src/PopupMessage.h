@@ -2,8 +2,8 @@
 // Created by Vladimir Schneider on 2023-02-27.
 //
 
-#ifndef UI_POPUPMESSAGE_H
-#define UI_POPUPMESSAGE_H
+#ifndef GUI_POPUPMESSAGE_H
+#define GUI_POPUPMESSAGE_H
 
 #include "PopupOptionsMenu.h"
 
@@ -40,4 +40,4 @@ extern const char okOpt[] PROGMEM;
 extern const char cancelOpt[] PROGMEM;
 
 
-#endif //UI_POPUPMESSAGE_H
+#endif // GUI_POPUPMESSAGE_H

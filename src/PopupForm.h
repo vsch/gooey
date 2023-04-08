@@ -2,8 +2,8 @@
 // Created by Vladimir Schneider on 2023-02-26.
 //
 
-#ifndef UI_POPUPFORM_H
-#define UI_POPUPFORM_H
+#ifndef GUI_POPUPFORM_H
+#define GUI_POPUPFORM_H
 
 #include "PopupOptionsMenu.h"
 
@@ -28,4 +28,4 @@ public:
     serialDebugHandlersDeclareId("PopupForm");
 };
 
-#endif //UI_POPUPFORM_H
+#endif // GUI_POPUPFORM_H

@@ -2,11 +2,11 @@
 // Created by Vladimir Schneider on 2023-03-10.
 //
 
-#ifndef UI_INTERFACEHANDLER_H
-#define UI_INTERFACEHANDLER_H
+#ifndef GUI_INTERFACEHANDLER_H
+#define GUI_INTERFACEHANDLER_H
 
 #include <Arduino.h>
-#include "../config.h"
+#include "../gui_config.h"
 #include "Events.h"
 
 // must be pure virtual class
@@ -31,4 +31,4 @@ public:
 #endif
 };
 
-#endif //UI_INTERFACEHANDLER_H
+#endif // GUI_INTERFACEHANDLER_H

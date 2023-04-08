@@ -2,8 +2,8 @@
 // Created by Vladimir Schneider on 2023-02-26.
 //
 
-#ifndef UI_POPUP_H
-#define UI_POPUP_H
+#ifndef GUI_POPUP_H
+#define GUI_POPUP_H
 
 #include "InterfaceHandler.h"
 #include "ssd1306_gfx.h"
@@ -47,4 +47,4 @@ public:
     }
 };
 
-#endif //UI_POPUP_H
+#endif // GUI_POPUP_H

@@ -3,12 +3,12 @@
 //
 
 #include "Arduino.h"
-#include "../config.h"
+#include "../gui_config.h"
 #include "ssd1306.h"
 #include "ssd1306_gfx.h"
 #include "Ssd1306Display.h"
 #include "InterfaceManager.h"
-#include "GooeyUtils.h"
+#include "GuiUtils.h"
 
 Ssd1306Display display;
 

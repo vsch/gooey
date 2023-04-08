@@ -3,8 +3,7 @@
 //
 
 #include "Arduino.h"
-#include "../config.h"
-#include "GooeyUtils.h"
+#include "GuiUtils.h"
 #include "ssd1306_gfx.h"
 
 uint8_t is_elapsed(uint32_t elapsedMicros, uint16_t delayMillis) {
