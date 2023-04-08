@@ -14,7 +14,7 @@ InterfaceManager interfaceManager = InterfaceManager();
 
 // InterfaceManager interface
 void InterfaceManager_power_down() {
-    power_off();
+    gui_power_off();
 }
 
 uint8_t InterfaceManager_is_preserve_popup_selection() {

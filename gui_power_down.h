@@ -9,7 +9,7 @@
 extern "C" {
 #endif
 
-extern void power_off();
+extern void gui_power_off();
 
 #ifdef __cplusplus
 };

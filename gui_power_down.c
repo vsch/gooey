@@ -31,7 +31,7 @@ ISR(PCINT2_vect) {
 
 #endif
 
-void power_off() {
+void gui_power_off() {
 #ifndef CONSOLE_DEBUG
     serialDebugPowerDownPuts_P(PSTR("powering down."));
     delay(10); // to allow completion of sending
