@@ -3,12 +3,12 @@
 //
 #include <Arduino.h>
 #include <Scheduler.h>
-#include "config.h"
-#include "pin_config.h"
+#include "gui_config.h"
+#include "gui_pin_config.h"
 #include "src/InterfaceManager.h"
 #include "src/ButtonHandler.h"
 #include "src/Events.h"
-#include "power_down.h"
+#include "gui_power_down.h"
 
 InterfaceManager interfaceManager = InterfaceManager();
 

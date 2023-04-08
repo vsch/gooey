@@ -9,9 +9,9 @@
 #endif
 
 #include "Arduino.h"
-#include "power_down.h"
-#include "config.h"
-#include "pin_config.h"
+#include "gui_power_down.h"
+#include "gui_config.h"
+#include "gui_pin_config.h"
 
 /**
  * Handle Port D pin change interrupts PCINT16 - PCINT23

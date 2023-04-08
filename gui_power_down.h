@@ -2,8 +2,8 @@
 // Created by Vladimir Schneider on 2023-03-26.
 //
 
-#ifndef COOKIEPORTIONER_POWER_DOWN_H
-#define COOKIEPORTIONER_POWER_DOWN_H
+#ifndef GUI_POWER_DOWN_H
+#define GUI_POWER_DOWN_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,4 +15,4 @@ extern void power_off();
 };
 #endif
 
-#endif //COOKIEPORTIONER_POWER_DOWN_H
+#endif // GUI_POWER_DOWN_H

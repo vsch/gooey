@@ -2,8 +2,8 @@
 // Created by Vladimir Schneider on 2023-03-30.
 //
 
-#ifndef COOKIEPORTIONER_TYPE_DEFS_H
-#define COOKIEPORTIONER_TYPE_DEFS_H
+#ifndef GUI_TYPE_DEFS_H
+#define GUI_TYPE_DEFS_H
 
 #define ENCODER_T_MIN   (INT16_MIN)
 #define ENCODER_T_MAX   (INT16_MAX)
@@ -21,4 +21,4 @@ typedef unsigned long time_t; // timestamps
 #define EXTERNC
 #endif
 
-#endif //COOKIEPORTIONER_TYPE_DEFS_H
+#endif // GUI_TYPE_DEFS_H

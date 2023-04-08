@@ -2,13 +2,13 @@
 // Created by Vladimir Schneider on 2023-02-25.
 //
 
-#ifndef COOKIEPORTIONER_CONFIG_H
-#define COOKIEPORTIONER_CONFIG_H
+#ifndef GUI_CONFIG_H
+#define GUI_CONFIG_H
 
 #pragma ide diagnostic ignored "modernize-use-nullptr"
 #pragma ide diagnostic ignored "modernize-use-auto"
 
-#include "type_defs.h"
+#include "gui_type_defs.h"
 
 // enable serial debugging
 // by itself only adds (flash/ram) bytes 138/34 if blocking or 810/210 in interrupt version
@@ -309,4 +309,4 @@ extern profileHandlerUpdateDeclare;
 #define profileHandlerUpdatePrintf_P(...) (void)0
 #endif
 
-#endif //COOKIEPORTIONER_CONFIG_H
+#endif // GUI_CONFIG_H
