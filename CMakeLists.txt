@@ -24,6 +24,7 @@ set(${PROJECT_NAME}_SRCS
         gui_test.cpp
         gui_power_down.c
         src/ButtonHandler.cpp
+        src/ConfigForm.cpp
         src/FieldEditor.cpp
         src/InterfaceManager.cpp
         src/Popup.cpp
@@ -40,6 +41,7 @@ set(${PROJECT_NAME}_HDRS
         gui_type_defs.h
         src/gooey.h
         src/ButtonHandler.h
+        src/ConfigForm.h
         src/Events.h
         src/FieldEditor.h
         src/InterfaceHandler.h

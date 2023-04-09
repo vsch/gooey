@@ -42,7 +42,6 @@ extern void InterfaceManager_power_down();
 extern uint8_t InterfaceManager_is_preserve_popup_selection();
 extern uint8_t InterfaceManager_get_power_down_delay();
 extern uint8_t InterfaceManager_get_flash_delay();
-extern void InterfaceManager_save_config();
 }
 
 class InterfaceManager : public Task {

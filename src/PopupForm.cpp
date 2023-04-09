@@ -23,6 +23,7 @@ event_t PopupForm::process(event_t event) {
         case EVENT_MENU_OPTION:
             // this is menu cancel, remove this popup menu from interface processing
             hide();
+            retVal = baseEvent;
             break;
 
         case EVENT_MENU_NEXT_SELECTION:

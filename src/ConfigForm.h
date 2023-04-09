@@ -34,7 +34,9 @@ struct FieldData {
 class ConfigForm : public PopupForm {
 public:
     const FieldData *fieldTable;
-    ConfigForm(PGM_P title, PGM_STR_TABLE options, uint8_t count, const FieldData *fields);
+    inline ConfigForm(PGM_P title, PGM_STR_TABLE options, uint8_t count, const FieldData *fields) : PopupForm(0, title, options, count) {
+        fieldTable = fields;
+    };
 
     virtual void updateField(uint8_t index, uint8_t selected);
     virtual void processField(uint8_t index);

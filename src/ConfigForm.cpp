@@ -9,10 +9,6 @@
 #include "Ssd1306Display.h"
 #include "InterfaceManager.h"
 
-ConfigForm::ConfigForm(PGM_P title, PGM_STR_TABLE options, uint8_t count, const FieldData *fields) : PopupForm(0, title, options, count) {
-    fieldTable = fields;
-}
-
 event_t ConfigForm::process(event_t event) {
     if (event == EVENT_CLOSE_MENU) {
         // editor field menu closed
@@ -123,5 +119,4 @@ void ConfigForm::setField(uint8_t index, int16_t value) {
 
 void ConfigForm::removed() {
     PopupForm::removed();
-    InterfaceManager_save_config();
 }
