@@ -6,6 +6,9 @@
 #define GUI_UTILS_H
 
 #include <stdint.h>
+#include "Arduino.h"
+#include "../gui_config.h"
+#include "ssd1306_gfx.h"
 
 #ifndef CONSOLE_DEBUG
 
@@ -13,8 +16,6 @@
 
 #endif
 
-#include "Arduino.h"
-#include "ssd1306_gfx.h"
 
 #define PRINT_CENTERED_Y 1
 #define PRINT_CENTERED_X 2

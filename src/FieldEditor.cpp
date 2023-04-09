@@ -102,7 +102,18 @@ uint8_t FieldEditor::update() {
     bool retVal = true;
     if ((menuFlags & POPUP_MENU_NO_INPLACE_EDIT) || !(interfaceManager.getWantOptions() & INTERFACE_WANT_ADJ_SELECTION)) {
         // don't have in-place mods, use menu
-        retVal = PopupMenu::update();
+        // if we have ADJ_SELECTION, then it is only a request to not edit in place, and we don't need our options
+        if (!(interfaceManager.getWantOptions() & INTERFACE_WANT_ADJ_SELECTION)) {
+            retVal = PopupMenu::update();
+        } else {
+            // just print title
+            retVal = Popup::update(); // NOLINT(bugprone-parent-virtual-call)
+            coord_y y = display.getCursorY();
+            if (fieldUpdater) {
+                fieldUpdater->updateField(fieldIndex);
+            }
+            display.moveTo(display.getLeftMargin(), y + display.getCharH());
+        }
 
         display.moveBy((coord_x) (display.getCharW() * 2), 2);
 

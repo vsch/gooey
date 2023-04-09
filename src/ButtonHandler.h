@@ -5,6 +5,7 @@
 #ifndef GUI_BUTTONHANDLER_H
 #define GUI_BUTTONHANDLER_H
 
+#include "../gui_config.h"
 #include <Scheduler.h>
 
 #ifndef CONSOLE_DEBUG
@@ -14,7 +15,6 @@
 #endif
 
 #include "Events.h"
-#include "../gui_config.h"
 
 #define BUTTON_PRESSED            0x01    // set if button is pressed
 #define BUTTON_AUTO_REPEATING     0x02    // set if button has passed auto repeat delay

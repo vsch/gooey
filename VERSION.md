@@ -2,6 +2,7 @@
 
 [TOC]: #
 
+- [1.22](#122)
 - [1.20](#120)
 - [1.18](#118)
 - [1.16](#116)
@@ -15,6 +16,12 @@
 - [0.1](#01)
 - [0.2](#02)
 
+
+## 1.22
+
+* Add: `FieldEditor` in disabled edit in place mode when in place edit
+  is available, uses `fieldUpdater` if available to print the hint in
+  place of options.
 
 ## 1.20
 
