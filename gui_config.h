@@ -10,6 +10,16 @@
 
 #include "gui_type_defs.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
+
+extern const char str_empty[] PROGMEM;
+
+#ifdef __cplusplus
+};
+#endif // __cplusplus
+
 // enable serial debugging
 // by itself only adds (flash/ram) bytes 138/34 if blocking or 810/210 in interrupt version
 // burst transmit adds 76/0 bytes blocking, 98/0 in interrupt version

@@ -20,7 +20,14 @@ void InterfaceManager::hadAction() {
 void InterfaceManager::begin() {
     serialDebugInitPuts_P(PSTR("InterfaceManager::begin()"));
 
+#ifdef GFX_PAGED_UPDATES
+    for (; gfx_update_page_y1 <= DISPLAY_YSIZE; gfx_start_next_page()) {
+        gfx_display();
+    }
+#else
     gfx_display();
+#endif
+
     serialDebugGfxTwiStatsPuts_P(PSTR("Initial Display"));
 
     delay(250);
@@ -60,6 +67,10 @@ void InterfaceManager::loop() {
 uint8_t InterfaceManager::update() {
     display.clearDisplay();
 
+#ifdef GFX_PAGED_UPDATES
+    for (; gfx_update_page_y1 <= DISPLAY_YSIZE; gfx_start_next_page()) {
+#endif
+
 #if SERIAL_DEBUG_HANDLER_UPDATE
     time_t start = micros();
 #endif
@@ -79,6 +90,10 @@ uint8_t InterfaceManager::update() {
 
 #if !defined(CONSOLE_DEBUG) || !defined(TESTING)
     display.display();
+#endif
+
+#ifdef GFX_PAGED_UPDATES
+    }
 #endif
 
     serialDebugGfxTwiStatsPuts_P(PSTR("Update Display"));
