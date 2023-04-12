@@ -20,20 +20,16 @@ void InterfaceManager::hadAction() {
 void InterfaceManager::begin() {
     serialDebugInitPuts_P(PSTR("InterfaceManager::begin()"));
 
-#ifdef GFX_PAGED_UPDATES
-    for (; gfx_update_page_y1 <= DISPLAY_YSIZE; gfx_start_next_page()) {
-        gfx_display();
+    while (!display.startNextPage()) {
+        display.display();
     }
-#else
-    gfx_display();
-#endif
 
     serialDebugGfxTwiStatsPuts_P(PSTR("Initial Display"));
 
     delay(250);
-    gfx_set_inverted();
+    display.invertedDisplay();
     delay(250);
-    gfx_clear_inverted();
+    display.normalDisplay();
 
     hadAction();
     resume(50);
@@ -59,43 +55,48 @@ void InterfaceManager::loop() {
         hadAction();
     }
 
-    update();
-    resume(64);  // refresh 16 x / sec
+    if (update()) resume(64);  // refresh in 64 ms
+    else resume(10);            // next page update after 10ms delay
 }
 
 // display update handling
 uint8_t InterfaceManager::update() {
-    display.clearDisplay();
-
-#ifdef GFX_PAGED_UPDATES
-    for (; gfx_update_page_y1 <= DISPLAY_YSIZE; gfx_start_next_page()) {
-#endif
-
 #if SERIAL_DEBUG_HANDLER_UPDATE
     time_t start = micros();
 #endif
+
+    if (!updatePhase) {
+        display.clearDisplay();
+        updatePhase = 1;
+    } else {
+        if (display.startNextPage()) {
+            updatePhase = 0;
+            return true;
+        }
+        updatePhase++;
+    }
+
     profileHandlerUpdateStart();
     uint8_t i;
     for (i = handlerCount; i--;) {
         InterfaceHandler *pHandler = handlers[i];
         if (pHandler) {
-            if (!pHandler->update()) break;
+            if (!pHandler->update(updatePhase - 1)) break;
         }
     }
     profileHandlerUpdateEnd();
 #ifdef SERIAL_DEBUG_HANDLER_UPDATE
     time_t end = micros();
-    printf_P(PSTR("Handlers.update():\n   in %ld uSec\n"), end - start);
 #endif
 
 #if !defined(CONSOLE_DEBUG) || !defined(TESTING)
     display.display();
 #endif
 
-#ifdef GFX_PAGED_UPDATES
-    }
+#ifdef SERIAL_DEBUG_HANDLER_UPDATE
+    time_t dispEnd = micros();
+    printf_P(PSTR("Handlers.update(%d): in %ld, with dispUpd %ld\n"), updatePhase, end - start, dispEnd - start);
 #endif
-
     serialDebugGfxTwiStatsPuts_P(PSTR("Update Display"));
     return false;
 }

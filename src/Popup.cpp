@@ -15,7 +15,7 @@ void Popup::hide() {
     interfaceManager.remove(this);
 }
 
-uint8_t Popup::update() {
+uint8_t Popup::update(uint8_t useCachedState) {
     // print title
     if (optionTitle) {
         drawTitle((PGM_P) optionTitle, 1);

@@ -18,8 +18,8 @@ PGM_P const okCancelFormOptions[] PROGMEM = {
 
 PopupMessage okCancelPopup = PopupMessage(okCancelTitle, okCancelTitle, okCancelFormOptions, lengthof(okCancelFormOptions));
 
-uint8_t PopupMessage::update() {
-    PopupOptionsMenu::update();
+uint8_t PopupMessage::update(uint8_t useCachedState) {
+    PopupOptionsMenu::update(0);
 
     display.setLeftMargin(display.getX());
     display.setBackColor(GFX_COLOR_NONE); // don't fill in background

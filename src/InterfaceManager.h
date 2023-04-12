@@ -51,9 +51,9 @@ class InterfaceManager : public Task {
     uint8_t flags;
     uint8_t wantFlags;
     time_t lastActionTimestamp;
+    uint8_t updatePhase;
 
 public:
-
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cppcoreguidelines-pro-type-member-init"
 
@@ -63,6 +63,7 @@ public:
         flags = 0;
         wantFlags = 0;
         flashTimeout = 0;
+        updatePhase = 0;
     }
 
 #pragma clang diagnostic pop
@@ -112,6 +113,8 @@ protected:
     virtual void loop();
     virtual void begin();
     void setMenuWantOptions();
+
+    defineSchedulerTaskId("InterfaceManager");
 };
 
 extern InterfaceManager interfaceManager;

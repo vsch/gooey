@@ -29,7 +29,7 @@ public:
     virtual void added() = 0;
     virtual void removed() = 0;
     virtual event_t process(event_t event) = 0;
-    virtual uint8_t update();
+    virtual uint8_t update(uint8_t useCachedState);
 
     inline virtual uint8_t activated(uint8_t wantFlags) {
         return INTERFACE_WANT_MENU_TRANSLATIONS | INTERFACE_WANT_MENU_OPTION;

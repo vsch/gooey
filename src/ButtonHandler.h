@@ -53,6 +53,7 @@ class ButtonHandler : public Task {
 
     virtual void begin();
     virtual void loop();
+    defineSchedulerTaskId("ButtonHandler");
 public:
     inline ButtonHandler(uint8_t *flags, Button_P buttons, uint8_t count) {
         buttonCount = count;

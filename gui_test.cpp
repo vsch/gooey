@@ -63,5 +63,5 @@ void setup() {
 }
 
 void loop() {
-    scheduler.loop(10);
+    scheduler.loop();
 }

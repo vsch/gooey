@@ -78,7 +78,7 @@ event_t PopupMenu::process(event_t event) {
     return retVal;
 }
 
-uint8_t PopupMenu::update() {
+uint8_t PopupMenu::update(uint8_t useCachedState) {
     // show all options and invert the selected one
     // serialDebugHandlerAddPrintf_P(PSTR("PopupMenu update() %S\n"), serialDebugHandlersGetId(this));
 
@@ -89,7 +89,7 @@ uint8_t PopupMenu::update() {
     coord_y y;
     uint8_t iMax;
 
-    Popup::update();
+    Popup::update(0);
 
     if (menuFlags & POPUP_MENU_OPTION_PER_LINE) {
         makeVisible(currentOption);

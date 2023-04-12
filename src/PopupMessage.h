@@ -31,7 +31,7 @@ public:
         PopupOptionsMenu::show(title, options, count);
     }
 
-    virtual uint8_t update();
+    virtual uint8_t update(uint8_t useCachedState);
 };
 
 extern PopupMessage okCancelPopup;

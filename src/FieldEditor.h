@@ -47,7 +47,7 @@ public:
     int16_t getOffset(uint8_t id);
 
     virtual event_t process(event_t event);
-    virtual uint8_t update();
+    virtual uint8_t update(uint8_t useCachedState);
     virtual uint8_t activated(uint8_t wantFlags);
 
     serialDebugHandlersDeclareId("FieldEditor");

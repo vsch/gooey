@@ -37,7 +37,7 @@ public:
     }
 
     virtual event_t process(event_t event);
-    virtual uint8_t update();
+    virtual uint8_t update(uint8_t useCachedState);
     virtual void added();
     virtual void removed();
     inline virtual uint8_t activated(uint8_t wantFlags) {
