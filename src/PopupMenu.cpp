@@ -80,8 +80,6 @@ event_t PopupMenu::process(event_t event) {
 
 uint8_t PopupMenu::update(uint8_t useCachedState) {
     // show all options and invert the selected one
-    // serialDebugHandlerAddPrintf_P(PSTR("PopupMenu update() %S\n"), serialDebugHandlersGetId(this));
-
     uint8_t i;
     uint8_t addSpc = false;
     uint8_t w, h;
@@ -158,7 +156,6 @@ uint8_t PopupMenu::update(uint8_t useCachedState) {
     display.setColors(GFX_COLOR_WHITE, GFX_COLOR_NONE); // Draw 'normal' text
     if (fieldUpdater && currentOption < optionCount) {
         // update info for this field
-        //serialDebugHandlerAddPrintf_P(PSTR("PopupMenu calling updateField(%d) %S\n"), currentOption, serialDebugHandlersGetId(this));
         fieldUpdater->updateField(currentOption);
     }
     return false;

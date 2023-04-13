@@ -98,16 +98,16 @@ event_t FieldEditor::process(event_t event) {
     return retVal;
 }
 
-uint8_t FieldEditor::update(uint8_t useCachedState) {
+uint8_t FieldEditor::update(uint8_t pageUpdate) {
     bool retVal = true;
     if ((menuFlags & POPUP_MENU_NO_INPLACE_EDIT) || !(interfaceManager.getWantOptions() & INTERFACE_WANT_ADJ_SELECTION)) {
         // don't have in-place mods, use menu
         // if we have ADJ_SELECTION, then it is only a request to not edit in place, and we don't need our options
         if (!(interfaceManager.getWantOptions() & INTERFACE_WANT_ADJ_SELECTION)) {
-            retVal = PopupMenu::update(0);
+            retVal = PopupMenu::update(pageUpdate);
         } else {
             // just print title
-            retVal = Popup::update(0); // NOLINT(bugprone-parent-virtual-call)
+            retVal = Popup::update(pageUpdate); // NOLINT(bugprone-parent-virtual-call)
             coord_y y = display.getCursorY();
             if (fieldUpdater) {
                 fieldUpdater->updateField(fieldIndex);

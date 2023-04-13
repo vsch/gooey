@@ -20,9 +20,9 @@ void InterfaceManager::hadAction() {
 void InterfaceManager::begin() {
     serialDebugInitPuts_P(PSTR("InterfaceManager::begin()"));
 
-    while (!display.startNextPage()) {
+    do {
         display.display();
-    }
+    } while (!display.startNextPage());
 
     serialDebugGfxTwiStatsPuts_P(PSTR("Initial Display"));
 
@@ -55,25 +55,34 @@ void InterfaceManager::loop() {
         hadAction();
     }
 
-    if (update()) resume(64);  // refresh in 64 ms
-    else resume(10);            // next page update after 10ms delay
+    resume(64);
+    update();
 }
 
 // display update handling
-uint8_t InterfaceManager::update() {
+void InterfaceManager::update() {
+#ifdef CONSOLE_DEBUG
+    currentPage = 0;
+    while (!updatePage());            // update all pages in one shot
+#else
+    if (!updatePage()) resume(10);   // page updates are spaced at 10ms to reduce tearing and artifacts
+#endif
+}
+
+uint8_t InterfaceManager::updatePage() {
 #if SERIAL_DEBUG_HANDLER_UPDATE
     time_t start = micros();
 #endif
 
-    if (!updatePhase) {
+    if (!currentPage) {
         display.clearDisplay();
-        updatePhase = 1;
+        currentPage = 1;
     } else {
         if (display.startNextPage()) {
-            updatePhase = 0;
+            currentPage = 0;
             return true;
         }
-        updatePhase++;
+        currentPage++;
     }
 
     profileHandlerUpdateStart();
@@ -81,7 +90,7 @@ uint8_t InterfaceManager::update() {
     for (i = handlerCount; i--;) {
         InterfaceHandler *pHandler = handlers[i];
         if (pHandler) {
-            if (!pHandler->update(updatePhase - 1)) break;
+            if (!pHandler->update(currentPage - 1)) break;
         }
     }
     profileHandlerUpdateEnd();
@@ -95,7 +104,7 @@ uint8_t InterfaceManager::update() {
 
 #ifdef SERIAL_DEBUG_HANDLER_UPDATE
     time_t dispEnd = micros();
-    printf_P(PSTR("Handlers.update(%d): in %ld, with dispUpd %ld\n"), updatePhase, end - start, dispEnd - start);
+    printf_P(PSTR("Handlers.update(%d): in %ld, with dispUpd %ld\n"), currentPage, end - start, dispEnd - start);
 #endif
     serialDebugGfxTwiStatsPuts_P(PSTR("Update Display"));
     return false;

@@ -51,8 +51,9 @@ class InterfaceManager : public Task {
     uint8_t flags;
     uint8_t wantFlags;
     time_t lastActionTimestamp;
-    uint8_t updatePhase;
+    uint8_t currentPage;
 
+    uint8_t updatePage();
 public:
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cppcoreguidelines-pro-type-member-init"
@@ -63,15 +64,15 @@ public:
         flags = 0;
         wantFlags = 0;
         flashTimeout = 0;
-        updatePhase = 0;
+        currentPage = 0;
     }
 
 #pragma clang diagnostic pop
 
     void hadAction();
+    void update();
 
-    virtual uint8_t update();
-    virtual event_t process(event_t event);
+    event_t process(event_t event);
 
     void add(InterfaceHandler *handler);
     void remove(InterfaceHandler *handler);
