@@ -2,6 +2,7 @@
 
 [TOC]: #
 
+- [1.28](#128)
 - [1.26](#126)
 - [1.24](#124)
 - [1.22](#122)
@@ -18,6 +19,11 @@
 - [0.1](#01)
 - [0.2](#02)
 
+
+## 1.28
+
+* Add: `printScreen()` method to interfaceManager to dump display as
+  ASCII to a stream.
 
 ## 1.26
 

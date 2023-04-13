@@ -59,17 +59,28 @@ void InterfaceManager::loop() {
     update();
 }
 
+void InterfaceManager::printScreen(FILE *stream) {
+    if (display.isPagedUpdate()) {
+        currentPage = 0;
+        while (!updatePage(0)) {
+            display.printScreen(stream);
+        }
+    } else {
+        display.printScreen(stdout);
+    }
+}
+
 // display update handling
 void InterfaceManager::update() {
 #ifdef CONSOLE_DEBUG
     currentPage = 0;
-    while (!updatePage());            // update all pages in one shot
+    while (!updatePage(1));            // update all pages in one shot
 #else
-    if (!updatePage()) resume(10);   // page updates are spaced at 10ms to reduce tearing and artifacts
+    if (!updatePage(1)) resume(10);   // page updates are spaced at 10ms to reduce tearing and artifacts
 #endif
 }
 
-uint8_t InterfaceManager::updatePage() {
+uint8_t InterfaceManager::updatePage(uint8_t updateDisplay) {
 #if SERIAL_DEBUG_HANDLER_UPDATE
     time_t start = micros();
 #endif
@@ -99,14 +110,16 @@ uint8_t InterfaceManager::updatePage() {
 #endif
 
 #if !defined(CONSOLE_DEBUG) || !defined(TESTING)
-    display.display();
+    if (updateDisplay) display.display();
 #endif
 
+    if (updateDisplay) {
 #ifdef SERIAL_DEBUG_HANDLER_UPDATE
-    time_t dispEnd = micros();
-    printf_P(PSTR("Handlers.update(%d): in %ld, with dispUpd %ld\n"), currentPage, end - start, dispEnd - start);
+        time_t dispEnd = micros();
+        printf_P(PSTR("Handlers.update(%d): in %ld, with dispUpd %ld\n"), currentPage, end - start, dispEnd - start);
 #endif
-    serialDebugGfxTwiStatsPuts_P(PSTR("Update Display"));
+        serialDebugGfxTwiStatsPuts_P(PSTR("Update Display"));
+    }
     return false;
 }
 
@@ -222,3 +235,4 @@ uint8_t InterfaceManager::findHandler(InterfaceHandler *handler) {
     }
     return -1;
 }
+

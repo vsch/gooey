@@ -53,7 +53,7 @@ class InterfaceManager : public Task {
     time_t lastActionTimestamp;
     uint8_t currentPage;
 
-    uint8_t updatePage();
+    uint8_t updatePage(uint8_t updateDisplay);
 public:
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cppcoreguidelines-pro-type-member-init"
@@ -109,6 +109,25 @@ public:
     inline uint8_t getWantOptions() const {
         return wantFlags;
     }
+
+    /**
+     * Dump the full screen to steam as ASCII text in the following form
+     * /------------------------------------------------------------------\
+     * |                   @@@         @                 @@@    @@    @@  |
+     * |                  @   @        @                @   @  @  @  @  @ |
+     * |   @@@@@@@@@      @   @ @   @ @@@    @@@        @   @  @     @    |
+     * |  @               @   @ @   @  @    @   @       @   @ @@@   @@@   |
+     * | @ @@@@@@@@@      @@@@@ @   @  @    @   @       @   @  @     @    |
+     * |@ @               @   @ @  @@  @  @ @   @       @   @  @     @    |
+     * |@@                @   @  @@ @   @@   @@@         @@@   @     @    |
+     * \------------------------------------------------------------------/
+     *
+     * In paged update mode will invoke update() of current handlers for every page
+     * in non-paged update will simply dump the current display buffer.
+     *
+     * @param stream     stream where to dump the screen
+     */
+    void printScreen(FILE *stream);
 
 protected:
     virtual void loop();
