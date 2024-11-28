@@ -4,11 +4,14 @@
 
 #include "Arduino.h"
 #include "Events.h"
-#include "InterfaceManager.h"
 #include "GuiUtils.h"
 #include "ButtonHandler.h"
 
-extern InterfaceManager interfaceManager;
+// Add the following to your main file to push events to interface manager
+//extern InterfaceManager interfaceManager;
+//void ButtonHandler_process_event(uint8_t event) {
+//    interfaceManager.process(event);
+//}
 
 void ButtonHandler::begin() {
     serialDebugInitPuts_P(PSTR("ButtonHandler::begin()"));
@@ -149,10 +152,10 @@ void ButtonHandler::loop() {
         // process event
         serialDebugButtonEventsPrintf_P(PSTR("ButtonHandler.loop generating event '%c'\n"), event);
 
-        interfaceManager.process(event);
+        ButtonHandler_process_event(event);
         if (secondEvent != EVENT_NONE) {
             serialDebugButtonEventsPrintf_P(PSTR("   second event '%c'\n"), secondEvent);
-            interfaceManager.process(secondEvent);
+            ButtonHandler_process_event(secondEvent);
         }
     }
 

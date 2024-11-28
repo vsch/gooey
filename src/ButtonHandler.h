@@ -77,6 +77,7 @@ public:
 extern ButtonHandler buttonHandler;
 
 extern "C" {
+extern void ButtonHandler_process_event(uint8_t event);
 extern uint8_t ButtonHandler_is_button_pressed(uint8_t id);
 extern uint16_t ButtonHandler_get_button_delay(uint8_t id, uint8_t delayType, uint16_t repeatCount);
 }
