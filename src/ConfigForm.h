@@ -30,6 +30,7 @@ struct FieldData {
 #define FIELD_UINT16(data, offsetTable, vmin, vmax) { &(data), updater_uint16, inplace_updater_uint16, setter_uint16, processor_uint16, (offsetTable), lengthof(offsetTable), vmin, vmax }
 #define FIELD_BOOL(func, toggle) { (void *)(func), updater_bool, inplace_updater_bool, NULL, (fieldProcessor_f)(toggle), NULL, 0, 0, 1 }
 #define FIELD_PERCENT(data) { &(data), updater_percent, inplace_updater_percent, setter_percent, processor_percent, fieldOffsets_1_5_10, lengthof(fieldOffsets_1_5_10), 0, 100 }
+#define FIELD_PERCENT_LIM(data,vmin,vmax) { &(data), updater_percent, inplace_updater_percent, setter_percent, processor_percent, fieldOffsets_1_5_10, lengthof(fieldOffsets_1_5_10), vmin, vmax }
 
 class ConfigForm : public PopupForm {
 public:

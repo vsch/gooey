@@ -43,13 +43,13 @@ typedef struct Button {
 } const *Button_P;
 
 class ButtonHandler : public Task {
-    uint8_t buttonCount;                    // button count
-    Button_P buttonTable;                  // pointer to structure of button information in PROGMEM
-    uint8_t *buttonFlags;                   // wantFlags for all buttons
+    uint8_t buttonCount;                // button count
+    Button_P buttonTable;               // pointer to structure of button information in PROGMEM
+    uint8_t *buttonFlags;               // wantFlags for all buttons
 
-    uint8_t buttonId;                       // active button id + 1
+    uint8_t buttonId;                   // active button id + 1
     uint16_t repeatCount;
-    time_t pressedTimestamp;         // timestamp of when button was pressed
+    time_t pressedTimestamp;            // timestamp of when button was pressed
 
     virtual void begin();
     virtual void loop();

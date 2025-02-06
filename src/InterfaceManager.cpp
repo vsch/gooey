@@ -2,6 +2,7 @@
 // Created by Vladimir Schneider on 2023-02-25.
 //
 
+#include <stdint.h>
 #include "Arduino.h"
 #include "../gui_config.h"
 #include "ssd1306.h"
@@ -13,7 +14,9 @@
 Ssd1306Display display;
 
 void InterfaceManager::hadAction() {
-    lastActionTimestamp = micros();
+    if (!powerOffDisabled) {
+        lastActionTimestamp = micros();
+    }
 }
 
 // Display Task methods
@@ -50,7 +53,9 @@ void InterfaceManager::loop() {
         }
     }
 
-    if (is_elapsed(t - lastActionTimestamp, InterfaceManager_get_power_down_delay() * 1000)) {
+    uint16_t powerDownDelay = InterfaceManager_get_power_down_delay();
+
+    if (!powerOffDisabled && is_elapsed_minutes(t - lastActionTimestamp, powerDownDelay * 1000L)) {
         InterfaceManager_power_down();
         hadAction();
     }
@@ -234,5 +239,21 @@ uint8_t InterfaceManager::findHandler(InterfaceHandler *handler) {
         if (handlers[i] == handler) return i;
     }
     return -1;
+}
+
+void InterfaceManager::enterProtectedPower() {
+    if (powerOffDisabled != 255) {
+        powerOffDisabled++;
+    }
+}
+
+void InterfaceManager::leaveProtectedPower() {
+    if (powerOffDisabled && !--powerOffDisabled) {
+        hadAction();
+    }
+}
+
+uint8_t InterfaceManager::getPowerOffDisabled() const {
+    return powerOffDisabled;
 }
 

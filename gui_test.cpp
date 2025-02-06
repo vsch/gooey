@@ -21,11 +21,11 @@ uint8_t InterfaceManager_is_preserve_popup_selection() {
     return true;
 }
 
-uint8_t InterfaceManager_get_power_down_delay() {
+uint16_t InterfaceManager_get_power_down_delay() {
     return 30;
 }
 
-uint8_t InterfaceManager_get_flash_delay() {
+uint16_t InterfaceManager_get_flash_delay() {
     return 250;
 }
 

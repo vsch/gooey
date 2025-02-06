@@ -29,7 +29,7 @@
 #define INTERFACE_WANT_AUTO_REPEAT_NAVIGATION   0x04
 #define INTERFACE_WANT_MENU_OPTION              0x08
 #define INTERFACE_WANT_VERTICAL_MENU            0x10
-#define INTERFACE_WANT_ADJ_SELECTION            0x20  // this is +/- to adjust values
+#define INTERFACE_WANT_ADJ_SELECTION            0x20  // this is +/- to adjust values, if enabled values will be adjusted in place
 
 #define INTERFACE_WANT_ASK_PREVIOUS             0xff
 
@@ -40,8 +40,8 @@
 extern "C" {
 extern void InterfaceManager_power_down();
 extern uint8_t InterfaceManager_is_preserve_popup_selection();
-extern uint8_t InterfaceManager_get_power_down_delay();
-extern uint8_t InterfaceManager_get_flash_delay();
+extern uint16_t InterfaceManager_get_power_down_delay();
+extern uint16_t InterfaceManager_get_flash_delay();
 }
 
 class InterfaceManager : public Task {
@@ -52,6 +52,7 @@ class InterfaceManager : public Task {
     uint8_t wantFlags;
     time_t lastActionTimestamp;
     uint8_t currentPage;
+    uint8_t powerOffDisabled;       // when non-zero, power down is disabled
 
     uint8_t updatePage(uint8_t updateDisplay);
 public:
@@ -65,6 +66,7 @@ public:
         wantFlags = 0;
         flashTimeout = 0;
         currentPage = 0;
+        powerOffDisabled = 0;
     }
 
 #pragma clang diagnostic pop
@@ -102,13 +104,16 @@ public:
         return !allSet(flags, (INTERFACE_SLOW_FLASH_OFF | INTERFACE_FAST_FLASH_OFF));
     }
 
-    inline bool isPreservePopupSelection() {
+    inline bool isPreservePopupSelection() const {
         return InterfaceManager_is_preserve_popup_selection();
     }
 
     inline uint8_t getWantOptions() const {
         return wantFlags;
     }
+
+    void enterProtectedPower();
+    void leaveProtectedPower();
 
     /**
      * Dump the full screen to steam as ASCII text in the following form
@@ -128,6 +133,8 @@ public:
      * @param stream     stream where to dump the screen
      */
     void printScreen(FILE *stream);
+
+    uint8_t getPowerOffDisabled() const;
 
 protected:
     virtual void loop();

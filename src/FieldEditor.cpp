@@ -47,19 +47,20 @@ void FieldEditor::clipToMinMax() {
 }
 
 void FieldEditor::adjustValue(int16_t delta) {
+    serialDebugFieldEditorProcessPrintf_P(PSTR("Adj Field %d value %d delta %d\n"), fieldIndex, fieldValue, delta);
     int16_t oldValue = fieldValue;
     fieldValue += delta;
     clipToMinMax();
 
     if (fieldValue != oldValue) {
         if (fieldUpdater) {
-            serialDebugFieldEditorPrintf_P(PSTR("Field %d changed to %d\n"), fieldIndex, fieldValue);
+            serialDebugFieldEditorProcessPrintf_P(PSTR("Field %d changed to %d\n"), fieldIndex, fieldValue);
             fieldUpdater->fieldChanged(fieldIndex, 0, fieldValue);
         } else {
-            serialDebugFieldEditorPrintf_P(PSTR("Field %d changed, to %d, no updater\n"), fieldIndex, fieldValue);
+            serialDebugFieldEditorProcessPrintf_P(PSTR("Field %d changed, to %d, no updater\n"), fieldIndex, fieldValue);
         }
     } else {
-        serialDebugFieldEditorPrintf_P(PSTR("Field %d not changed, old %d, new %ld\n"), fieldIndex, oldValue, fieldValue);
+        serialDebugFieldEditorProcessPrintf_P(PSTR("Field %d not changed, old %d, new %ld\n"), fieldIndex, oldValue, fieldValue);
     }
 }
 
@@ -81,7 +82,7 @@ event_t FieldEditor::process(event_t event) {
 
         if (popUpEvent >= EVENT_OPTION_0 && popUpEvent < EVENT_OPTION_9) {
             // these are ours
-            serialDebugFieldEditorPrintf_P(PSTR("process %d idx: %d offs: %d\n"), popUpEvent, popUpEvent - EVENT_OPTION_0, getOffset(popUpEvent - EVENT_OPTION_0));
+            serialDebugFieldEditorProcessPrintf_P(PSTR("process %d idx: %d offs: %d\n"), popUpEvent, popUpEvent - EVENT_OPTION_0, getOffset(popUpEvent - EVENT_OPTION_0));
 
             if (popUpEvent - EVENT_OPTION_0 < optionCount) {
                 adjustValue(getOffset(popUpEvent - EVENT_OPTION_0));

@@ -10,6 +10,10 @@ uint8_t is_elapsed(uint32_t elapsedMicros, uint16_t delayMillis) {
     return elapsedMicros >= delayMillis * 1000L;
 }
 
+uint8_t is_elapsed_minutes(uint32_t elapsedMicros, uint32_t delayMillis) {
+    return elapsedMicros >= delayMillis * 1000L;
+}
+
 // return percent complete in 0..255 with 255 being 100% complete
 uint8_t elapsed_progress(uint32_t elapsedMicros, uint16_t delayMillis) {
     if (is_elapsed(elapsedMicros, delayMillis)) {

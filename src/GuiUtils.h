@@ -32,6 +32,7 @@ extern void drawTitle(PGM_P pOpt, uint8_t round);
 typedef const char *const *PGM_STR_TABLE;
 
 extern uint8_t is_elapsed(uint32_t elapsedMicros, uint16_t delayMillis);
+extern uint8_t is_elapsed_minutes(uint32_t elapsedMicros, uint32_t delayMillis);
 extern uint8_t elapsed_progress(uint32_t elapsedMicros, uint16_t delayMillis);
 
 inline uint8_t charBetween(char c, char c1, char c2) {
